@@ -1,0 +1,59 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>
+	<meta charset="UTF-8">
+	<title>Sky</title>
+
+	<link rel="stylesheet" href="stylesheets/main.css"/>
+
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/raphael.js"></script>
+
+</head>
+
+<body>
+
+<script>
+var paper = Raphael(0, 0, 2200, 1100);
+var opicitychange=0.1;
+var bgStar = new Array();
+for(var i=0;i<200;i++){
+	bgStar[i]=[Math.random()*2200,Math.random()*1100,Math.random()*3,Math.random(),opicitychange];
+}
+drawStar(paper,bgStar);
+
+function drawStar(papaer,bgStar){
+	papaer.clear();
+	for(var i=0;i<bgStar.length;i++){
+		var circle = paper.circle(bgStar[i][0], bgStar[i][1], bgStar[i][2]);
+		circle.attr("fill", "#fff");
+		circle.attr("opacity", bgStar[i][3]);
+		if(bgStar[i][3]>=1){
+			bgStar[i][4]=-opicitychange;
+		}
+		if(bgStar[i][3]<0){
+			bgStar[i][4]=opicitychange;
+		}
+		bgStar[i][3]+=bgStar[i][4];
+		
+	}
+}
+setInterval("drawStar(paper,bgStar)", 100); 
+</script>
+
+
+<div id="layer">
+<script>
+
+var data=[56,70,120,36,10,100];
+
+
+
+</script>
+</div>
+
+
+
+</body>
+</html>
