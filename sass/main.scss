@@ -1,4 +1,6 @@
 
+
+
 body{
 	background-color:black;
 	overflow-x:hidden;
@@ -9,4 +11,82 @@ body{
 	position: fixed;
 	height: 100%;
 	width: 100%;
+	text-align: center;
+}
+
+#starslayer{
+	position: fixed
+}
+
+#earthlayer{
+	position: fixed;
+	bottom: 0px;
+	left: 50%; 
+	margin: 0 0 -200px -480px; 
+	width: 960px;
+	height: 400px;
+	background-image: url(../img/earth.png);
+	background-repeat: no-repeat;
+	background-size:100% 100%;
+}
+
+
+.stars1{
+	width: 10px;
+	&:hover {
+		width:20px;
+		margin: 0 0 -5px -5px; 
+	}
+}
+
+
+.stars2{
+	width: 30px;
+
+	&:hover {
+		width:40px;
+		margin: 0 0 -5px -5px; 
+	}
+}
+
+.stars3{
+	width: 50px;
+
+	&:hover {
+		width:60px;
+		margin: 0 0 -5px -5px; 
+	}
+}
+
+.stars4{
+	width: 100px;
+
+	&:hover {
+		width:120px;
+		margin: 0 0 -10px -10px; 
+	}
+}
+
+.stars5{
+	width: 150px;
+
+	&:hover {
+		width:170px;
+		margin: 0 0 -10px -10px; 
+	}
+
+}
+
+.stars6{
+	width: 200px;
+	
+	&:hover {
+		width:220px;
+		margin: 0 0 -10px -10px; 
+	}
+}
+
+
+.starContainer{
+	position: fixed;
 }

@@ -1,13 +1,97 @@
-/* line 2, ../sass/main.scss */
+/* line 4, ../sass/main.scss */
 body {
   background-color: black;
   overflow-x: hidden;
   overflow-y: hidden;
 }
 
-/* line 8, ../sass/main.scss */
+/* line 10, ../sass/main.scss */
 #layer {
   position: fixed;
   height: 100%;
   width: 100%;
+  text-align: center;
+}
+
+/* line 17, ../sass/main.scss */
+#starslayer {
+  position: fixed;
+}
+
+/* line 21, ../sass/main.scss */
+#earthlayer {
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  margin: 0 0 -200px -480px;
+  width: 960px;
+  height: 400px;
+  background-image: url(../img/earth.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+/* line 34, ../sass/main.scss */
+.stars1 {
+  width: 10px;
+}
+/* line 36, ../sass/main.scss */
+.stars1:hover {
+  width: 20px;
+  margin: 0 0 -5px -5px;
+}
+
+/* line 43, ../sass/main.scss */
+.stars2 {
+  width: 30px;
+}
+/* line 46, ../sass/main.scss */
+.stars2:hover {
+  width: 40px;
+  margin: 0 0 -5px -5px;
+}
+
+/* line 52, ../sass/main.scss */
+.stars3 {
+  width: 50px;
+}
+/* line 55, ../sass/main.scss */
+.stars3:hover {
+  width: 60px;
+  margin: 0 0 -5px -5px;
+}
+
+/* line 61, ../sass/main.scss */
+.stars4 {
+  width: 100px;
+}
+/* line 64, ../sass/main.scss */
+.stars4:hover {
+  width: 120px;
+  margin: 0 0 -10px -10px;
+}
+
+/* line 70, ../sass/main.scss */
+.stars5 {
+  width: 150px;
+}
+/* line 73, ../sass/main.scss */
+.stars5:hover {
+  width: 170px;
+  margin: 0 0 -10px -10px;
+}
+
+/* line 80, ../sass/main.scss */
+.stars6 {
+  width: 200px;
+}
+/* line 83, ../sass/main.scss */
+.stars6:hover {
+  width: 220px;
+  margin: 0 0 -10px -10px;
+}
+
+/* line 90, ../sass/main.scss */
+.starContainer {
+  position: fixed;
 }
