@@ -1,1 +1,0 @@
-{"Places":[{"PlaceId":"EDI-sky","PlaceName":"Edinburgh","CountryId":"UK-sky","RegionId":"","CityId":"EDIN-sky","CountryName":"United Kingdom"},{"PlaceId":"EDA-sky","PlaceName":"Edna Bay","CountryId":"US-sky","RegionId":"AK","CityId":"EDAA-sky","CountryName":"United States"}]}
