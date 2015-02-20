@@ -1,0 +1,191 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>
+	<meta charset="UTF-8">
+	<title>Interstellar Catcher</title>
+
+	<link rel="stylesheet" href="stylesheets/main.css"/>
+	<meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+
+	<script src="js/d3/d3.min.js" charset="utf-8"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/raphael.js"></script>
+
+
+</head>
+
+<body>
+<div id="flashdiv"></div>
+
+
+
+<script>
+var paper = Raphael(0, 0, 2200, 1100);
+var opicitychange=0.1;
+var bgStar = new Array();
+for(var i=0;i<200;i++){
+	bgStar[i]=[Math.random()*2200,Math.random()*1100,Math.random()*3,Math.random(),opicitychange];
+}
+drawStar(paper,bgStar);
+
+function drawStar(papaer,bgStar){
+	papaer.clear();
+	for(var i=0;i<bgStar.length;i++){
+		var circle = paper.circle(bgStar[i][0], bgStar[i][1], bgStar[i][2]);
+		circle.attr("fill", "#fff");
+		circle.attr("opacity", bgStar[i][3]);
+		if(bgStar[i][3]>=1){
+			bgStar[i][4]=-opicitychange;
+		}
+		if(bgStar[i][3]<0){
+			bgStar[i][4]=opicitychange;
+		}
+		bgStar[i][3]+=bgStar[i][4];
+		
+	}
+}
+setInterval("drawStar(paper,bgStar)", 100); 
+</script>
+
+
+<div id="layer">
+	<div id="starslayer">
+	</div>
+	<div id="earthlayer">
+		<p style="color:white"></p>
+		<a href="javascript:void(0);" onclick="dataupdate();"><img src="img/skyseer.png"/></a>
+
+		<img src="img/rocket.png" style="height:150px"/>
+	</div>
+</div>
+
+
+
+
+<script>
+var lowPrice=80;
+
+
+var data=[56,70,120,36,10,100,29,130,29,329,19,73,59,10,49,60,30,48];
+
+dataupdate();
+
+function dataupdate(){
+	flash();
+}
+
+
+
+
+
+function bindstars(){
+
+	$("#starslayer").text("");
+	d3.select("#starslayer").selectAll("img")
+		.data(data)
+	    .enter()
+	    .append("div")
+	    .attr("class","starContainer")
+	    .attr("style",function(d){
+			var style="";
+			style+="top:"+getHeight(0.1,0.6)+"px;"+"left:"+getWidth(0.1,0.9)+"px;";
+			return style;
+		 })
+	    .append("img")
+	    .attr("src",function(d){
+	    	var x=Math.random()*6;
+	    	if(x<=1)return"img/planet1.png";
+	    	if(x<=2)return"img/planet2.png";
+	    	if(x<=3)return"img/planet3.png";
+	    	if(x<=4)return"img/planet4.png";
+	    	if(x<=5)return"img/planet5.png";
+	    	else return"img/planet6.png";
+
+	    })
+	    .attr("class",function(d){
+	    	if(d>80)return"stars1";
+	    	if(d>60)return"stars2";
+	    	if(d>40)return"stars3";
+	    	if(d>30)return"stars4";
+	    	if(d>20)return"stars5";
+	    	else return"stars6";
+	    });
+}
+
+function addstyle(style,characteristic,value){
+	if(style=="") style+=characteristic+":"+value;
+	else style+=","+characteristic+":"+value;
+};
+
+function getWidth(min,max){//min>=0;max<=1
+	return ($(window).width()*min)+(Math.random()*$(window).width()*(max-min));
+}
+
+function getHeight(min,max){//min>=0;max<=1
+	return ($(window).height()*min)+(Math.random()*$(window).height()*(max-min));
+}
+
+function flash(){
+	$("#flashdiv").show().animate({opacity:'0.9'},"fast",function(){bindstars();}).animate({opacity:'0'},"slow",function(){$("#flashdiv").hide();});
+}
+
+
+// var thedata;
+// var xmlhttp;
+// if (window.XMLHttpRequest)
+//   {// code for IE7+, Firefox, Chrome, Opera, Safari
+//   xmlhttp=new XMLHttpRequest();
+//   }
+// else
+//   {// code for IE6, IE5
+//   xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+//   }
+// xmlhttp.open("GET","http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/GB/GBP/en-GB/GB/anywhere/2015-02-20",true);
+// xmlhttp.setRequestHeader("Content-type","application/json");
+// xmlhttp.send("apiKey=ilw05191304919538696117687255292");
+// console.log(xmlhttp.responseText);
+// thedata=JSON.parse(xmlhttp.responseText);
+// console.log(thedata);
+
+// var thedata;
+// $.ajax({
+//         url: "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/GB/GBP/en-GB/GB/anywhere/2015-02-20?apiKey=ilw05191304919538696117687255292",
+//         type: 'GET',
+//         dataType: 'JSONP',//here
+//         success: function (data) {
+// 		console.log(data);
+//         }
+//     });
+
+
+
+// $.ajax({
+//     type : "get",
+//     async:false,
+//     url : "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/GB/GBP/en-GB/GB/anywhere/2015-02-20?apiKey=ilw05191304919538696117687255292",
+//     dataType : "jsonp",
+//     data:"{}",
+//     contentType: "application/jsonp; charset=utf-8",
+//     jsonp: "callbackparam",//服务端用于接收callback调用的function名的参数
+//     jsonpCallback:"success_jsonpCallback",//callback的function名称
+//     success : function(json){
+//         }
+// });
+
+
+	$.get( "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/GB/GBP/en-GB/GB/anywhere/2015-02-20?apiKey=ilw05191304919538696117687255292", function( data ) {
+		
+		console.log(data);
+		thedata=JSON.parse(data);
+		console.log(thedata);
+		});
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -31,67 +31,170 @@ body {
   background-size: 100% 100%;
 }
 
-/* line 34, ../sass/main.scss */
+/* line 33, ../sass/main.scss */
+#skyseer {
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  margin: 0 0 -50px -90px;
+  height: 240px;
+  z-index: 100;
+  cursor: pointer;
+}
+
+/* line 47, ../sass/main.scss */
+#rocket {
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  margin: 0 0 20px -150px;
+  height: 130px;
+  z-index: 50;
+  cursor: pointer;
+}
+
+/* line 58, ../sass/main.scss */
+#flashdiv {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0px;
+  bottom: 0px;
+  z-index: 1000;
+  left: 0px;
+  right: 0px;
+  background-color: white;
+  display: none;
+  opacity: 0;
+}
+
+/* line 72, ../sass/main.scss */
 .stars1 {
   width: 10px;
 }
-/* line 36, ../sass/main.scss */
+/* line 74, ../sass/main.scss */
 .stars1:hover {
   width: 20px;
-  margin: 0 0 -5px -5px;
+  margin: -5px  0 0 -5px;
+  opacity: 0.8;
 }
 
-/* line 43, ../sass/main.scss */
+/* line 82, ../sass/main.scss */
 .stars2 {
   width: 30px;
 }
-/* line 46, ../sass/main.scss */
+/* line 85, ../sass/main.scss */
 .stars2:hover {
   width: 40px;
-  margin: 0 0 -5px -5px;
+  margin: -5px  0 0 -5px;
+  opacity: 0.8;
 }
 
-/* line 52, ../sass/main.scss */
+/* line 92, ../sass/main.scss */
 .stars3 {
   width: 50px;
 }
-/* line 55, ../sass/main.scss */
+/* line 95, ../sass/main.scss */
 .stars3:hover {
   width: 60px;
-  margin: 0 0 -5px -5px;
+  margin: -5px  0 0 -5px;
+  opacity: 0.8;
 }
 
-/* line 61, ../sass/main.scss */
+/* line 102, ../sass/main.scss */
 .stars4 {
   width: 100px;
 }
-/* line 64, ../sass/main.scss */
+/* line 105, ../sass/main.scss */
 .stars4:hover {
   width: 120px;
-  margin: 0 0 -10px -10px;
+  margin: -10px  0 0 -10px;
+  opacity: 0.8;
 }
 
-/* line 70, ../sass/main.scss */
+/* line 112, ../sass/main.scss */
 .stars5 {
   width: 150px;
 }
-/* line 73, ../sass/main.scss */
+/* line 115, ../sass/main.scss */
 .stars5:hover {
-  width: 170px;
-  margin: 0 0 -10px -10px;
+  opacity: 0.8;
 }
 
-/* line 80, ../sass/main.scss */
+/* line 122, ../sass/main.scss */
 .stars6 {
   width: 200px;
 }
-/* line 83, ../sass/main.scss */
+/* line 125, ../sass/main.scss */
 .stars6:hover {
-  width: 220px;
-  margin: 0 0 -10px -10px;
+  opacity: 0.8;
 }
 
-/* line 90, ../sass/main.scss */
+/* line 131, ../sass/main.scss */
 .starContainer {
   position: fixed;
+}
+
+/* line 137, ../sass/main.scss */
+.starname {
+  color: white;
+  font-family: Impact;
+  font-size: 20px;
+  /*width: 50px;*/
+  z-index: 500;
+  width: 80px;
+  margin: 0 auto 0 auto;
+  position: relative;
+  top: 10px;
+  cursor: pointer;
+}
+
+/* line 150, ../sass/main.scss */
+#nowdate {
+  color: white;
+  font-family: Impact;
+  font-size: 18px;
+  z-index: 500;
+  text-align: center;
+  position: relative;
+  margin: 0 auto 0 auto;
+  top: -30px;
+}
+
+/* line 161, ../sass/main.scss */
+#nowplanet {
+  color: white;
+  font-family: Impact;
+  font-size: 30px;
+  z-index: 500;
+  text-align: center;
+  position: relative;
+  margin: 0 auto 0 auto;
+  top: -35px;
+}
+
+/* line 172, ../sass/main.scss */
+.startextdiv {
+  position: relative;
+  margin: 0 auto 0 auto;
+  top: -120px;
+  text-align: center;
+}
+
+/* line 180, ../sass/main.scss */
+#moon {
+  z-index: 500;
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  margin: 0 0 +40px -400px;
+}
+
+/* line 188, ../sass/main.scss */
+#sun {
+  z-index: 500;
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  margin: 0 0 +90px +320px;
 }

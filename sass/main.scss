@@ -30,12 +30,51 @@ body{
 	background-size:100% 100%;
 }
 
+#skyseer{
+	position: fixed;
+	bottom: 0px;
+	left: 50%; 
+	margin: 0 0 -50px -90px;
+	height: 240px; 
+	z-index: 100;
+	cursor: pointer;
+	&:hover{
+
+	}
+}
+
+
+#rocket{
+	position: fixed;
+	bottom: 0px;
+	left: 50%; 
+	margin: 0 0 20px -150px;
+	height: 130px; 
+	z-index: 50;
+	cursor: pointer;
+}
+
+
+#flashdiv{
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top:0px;
+	bottom: 0px;
+	z-index: 1000;
+	left: 0px;
+	right: 0px;
+	background-color: white;
+	display: none;
+	opacity: 0;
+}
 
 .stars1{
 	width: 10px;
 	&:hover {
 		width:20px;
-		margin: 0 0 -5px -5px; 
+		margin:-5px  0 0 -5px; 
+				opacity:0.8;
 	}
 }
 
@@ -45,7 +84,8 @@ body{
 
 	&:hover {
 		width:40px;
-		margin: 0 0 -5px -5px; 
+		margin:-5px  0 0 -5px; 
+				opacity:0.8;
 	}
 }
 
@@ -54,7 +94,8 @@ body{
 
 	&:hover {
 		width:60px;
-		margin: 0 0 -5px -5px; 
+		margin:-5px  0 0 -5px; 
+				opacity:0.8;
 	}
 }
 
@@ -63,7 +104,8 @@ body{
 
 	&:hover {
 		width:120px;
-		margin: 0 0 -10px -10px; 
+		margin:-10px  0 0 -10px; 
+				opacity:0.8;
 	}
 }
 
@@ -71,22 +113,83 @@ body{
 	width: 150px;
 
 	&:hover {
-		width:170px;
-		margin: 0 0 -10px -10px; 
+		opacity:0.8;
 	}
 
 }
+
 
 .stars6{
 	width: 200px;
 	
 	&:hover {
-		width:220px;
-		margin: 0 0 -10px -10px; 
+		opacity:0.8;
 	}
 }
 
 
 .starContainer{
 	position: fixed;
+}
+
+
+
+.starname{
+	color: white;
+	font-family: Impact;
+	font-size: 20px;
+	/*width: 50px;*/
+	z-index: 500;
+	width: 80px;
+	margin: 0 auto 0 auto;
+	position: relative;
+	top:10px;
+	cursor:pointer;
+}
+
+#nowdate{
+	color: white;
+	font-family: Impact;
+	font-size: 18px;
+	z-index: 500;
+	text-align: center;
+	position:relative;
+	margin: 0 auto 0 auto;
+	top:-30px
+}
+
+#nowplanet{
+	color: white;
+	font-family: Impact;
+	font-size: 30px;
+	z-index: 500;
+	text-align: center;
+	position:relative;
+	margin: 0 auto 0 auto;
+	top:-35px;
+}
+
+.startextdiv{
+	position:relative;
+	margin: 0 auto 0 auto;
+	top:-120px;
+	text-align: center;
+
+}
+
+#moon{
+	z-index: 500;
+	position: fixed;
+	bottom: 0px;
+	left: 50%; 
+	margin: 0 0 +40px -400px;
+}
+
+#sun{
+	z-index: 500;
+	position: fixed;
+	bottom: 0px;
+	left: 50%; 
+	margin: 0 0 +90px +320px;
+
 }
