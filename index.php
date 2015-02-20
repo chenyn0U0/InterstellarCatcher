@@ -62,6 +62,7 @@ setInterval("drawStar(paper,bgStar)", 100);
 
 
 <div id="layer">
+
     <div id="starslayer">
     </div>
     <div id="earthlayer">
@@ -71,9 +72,10 @@ setInterval("drawStar(paper,bgStar)", 100);
         <p id="nowplanet">Edinburgh</p>
         <a id="moon" title="Today" href="javascript:void(0);"><img style="width:80px" src="img/moon.png" alt=""></a>
         <a id="sun" title="Next day" href="javascript:void(0);"><img style="width:90px" src="img/sun.png" alt=""></a>
-        <p id="nowdate"></p>
-        <p id="nowplanetvalue" style="display:none">EDI-sky</p>
+        <p id="nowdate">2015-02-20</p>
+        <p id="nowplanetvalue" style="display:none"></p>
     </div>
+    <p id="input" style="display:none"></p>
 </div>
 
 
@@ -81,62 +83,90 @@ setInterval("drawStar(paper,bgStar)", 100);
 
 <script>
 
-    var showdataamount=50;
+var showdataamount=50;
+var stardata=new Array();//{1.number in alldata(QuoteId); 2.price; 3.destination; 4.direct or not}
 
-    var alldata;
-    var stardata=new Array();//{1.number in alldata(QuoteId); 2.price; 3.destination; 4.direct or not}
+main();
 
-
-
-
-$.get( "exampledata.txt", function( data ) {
-
-    function sortdata(){
-        alldata=JSON.parse(data);
-
-        alldata.Quotes.sort(function(x, y){ return x.MinPrice-y.MinPrice;});
-        
-        for(var j=0;j<showdataamount;j++){
-
-            for(var i=0;i<alldata.Places.length;i++){
-                if(alldata.Places[i].PlaceId==alldata.Quotes[j].OutboundLeg.DestinationId) {
-                    stardata[stardata.length]=[alldata.Quotes[j].QuoteId,alldata.Quotes[j].MinPrice,alldata.Places[i].Name];
-                }
-
-            }
-        }
-        console.log(alldata);
-        return(stardata);
-     }
-
-
-var data=sortdata();
-
-
-// var data=[56,70,120,36,10,100,29,130,29,329,19,73,59,10,49,60,30,48];
-gettoday();
-dataupdate();
-$("#skyseer").click(function(){dataupdate();});
-
+$("#skyseer").click(function(){main();});
 $("#rocket").click(function(){$("#nowplanet").text("Edinburgh");dataupdate();});
+$("#moon").click(function(){
+    gettoday();
+    dataupdate();
+});
+$("#sun").click(function(){
+    turntonextday();
+    dataupdate();
+});
 
-function dataupdate(){
-    rocketfly(500,1);
-    flash();
-    rocketback();
+
+function main(){
+    gettoday();
+    dataupdate();
 }
 
+
+function dataupdate(){
+    $.ajax({
+     url:'http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/GB/GBP/en-GB?query='+$("#nowplanet").text()+'&apiKey=prtl6749387986743898559646983194',
+     dataType:"json",
+     timeout: 5000,
+     jsonp:"jsonpcallback",
+     success:function(data){
+        $("#nowplanetvalue").text(data.Places[0].PlaceId);
+        console.log(data);
+
+        $.ajax({
+             url:'http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/GB/GBP/en-GB/'+$("#nowplanetvalue").text()+'/anywhere/'+getdate()+'?apiKey=ilw05191304919538696117687255292',
+             dataType:"json",
+             timeout: 5000,
+             jsonp:"jsonpcallback",
+             success:function(alldata){
+                var data= JSON.stringify( alldata );
+                $("#input").text(data);
+                console.log(alldata);
+                stardata=sortdata();
+                flash();
+             }
+        });
+     }
+    });
+
+}
+
+function sortdata(){
+    stardata=[];
+    var input=$("#input").text();
+    alldata=JSON.parse(input);
+
+    alldata.Quotes.sort(function(x, y){ return x.MinPrice-y.MinPrice;});
+    if(showdataamount>alldata.Quotes.length) showdataamount=alldata.Quotes.length;
+    for(var j=0;j<showdataamount;j++){
+
+        for(var i=0;i<alldata.Places.length;i++){
+            if(alldata.Places[i].PlaceId==alldata.Quotes[j].OutboundLeg.DestinationId) {
+                stardata[stardata.length]=[alldata.Quotes[j].QuoteId,alldata.Quotes[j].MinPrice,alldata.Places[i].Name];
+            }
+
+        }
+    }
+    console.log(alldata);
+    return(stardata);
+ }
+
+
+
+
 function bindstars(){
-    var v1=35;
-    var v2=45;
-    var v3=60;
-    var v4=70;
-    var v5=100;
+    var v1=60;
+    var v2=100;
+    var v3=150;
+    var v4=200;
+    var v5=250;
 
-
-    $("#starslayer").text("");
+    
     var stardiv= d3.select("#starslayer").selectAll("img")
-        .data(data)
+        .data(stardata)
         .enter()
         .append("div")
         .attr("class","starContainer")
@@ -196,24 +226,23 @@ function bindstars(){
         .on("click",starjump);
 
 
-function mouseOverPic(d,i){
-        // d3.select(this).classed("z-index","200");
-        //     $(".starname").hide();
-        //     $("#name" + i).show("slow");
-}
-function mouseOutPic(d,i){
-     // d3.select(this).classed("z-index","0");
-     //        $(".starname").stop().hide("fast");
+    function mouseOverPic(d,i){
+            // d3.select(this).classed("z-index","200");
+            //     $(".starname").hide();
+            //     $("#name" + i).show("slow");
+    }
+    function mouseOutPic(d,i){
+         // d3.select(this).classed("z-index","0");
+         //        $(".starname").stop().hide("fast");
+    }
+
+    function starjump(d){
+        $("#nowplanet").text(d[2]);
+        console.log(d[2]);
+        dataupdate();
+    }
 }
 
-function starjump(d){
-    $("#nowplanet").text(d[2]);
-    console.log(d[2]);
-    dataupdate();
-}
-
-
-}
 
 function addstyle(style,characteristic,value){
     if(style=="") style+=characteristic+":"+value;
@@ -229,7 +258,7 @@ function getHeight(min,max){//min>=0;max<=1
 }
 
 function flash(){
- $("#flashdiv").show().animate({opacity:'0.9'},"fast",function(){bindstars();}).animate({opacity:'0'},"slow",function(){$("#flashdiv").hide();});
+ $("#flashdiv").show().animate({opacity:'0.9'},"fast",function(){$("#starslayer").text("");bindstars();}).animate({opacity:'0'},"slow",function(){$("#flashdiv").hide();});
 }
 
 function rocketfly(x,y){
@@ -243,55 +272,6 @@ function rocketback(){
     $("#rocket").stop().css('top','inherit').animate({opacity:'1'},"slow");
 }
 
-
-	// $.ajax({
-	//     url: 'http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/GB/GBP/en-GB/'+$("#nowplanetvalue").text()+'/anywhere/'+$("#nowdate").text()+'?apiKey=ilw05191304919538696117687255292&callback=chen',
-	//     type: 'GET',
-	//     // jsonpCallback: 'callback',
-	//     crossDomain: true, // enable this
-	//     dataType: 'jsonp',
-	//     success: function(data) { 
-	//     console.log(data) },
-	//     error: function() {}
-	//     // beforeSend: setHeader
-	// });
-
-//*********************************
-
-    // $.ajax({
-    //     url: 'http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/GB/GBP/en-GB?query='+$("#nowplanet").text()+'&apiKey=ilw05191304919538696117687255292&callback=chen',
-    //     type: 'GET',
-    //     jsonpCallback: 'callback',
-    //     crossDomain: true, // enable this
-    //     dataType: 'json',
-    //     success: function(data) { 
-    //     console.log(data) },
-    //     error: function() {}
-    //     // beforeSend: setHeader
-    // });
-//
-//*********************
-
-        // console.log(alldata);
-        // for(var i=0;i<alldata.Quotes[i].length;i++){
-        //     for(var j=0;j<stardata.length;j++){
-        //         alldata.Quotes[i].MinPrice
-        //     }
-        // }
-   
-
-
-console.log(alldata);
-
-$("#moon").click(function(){
-    gettoday();
-    dataupdate();
-});
-
-$("#sun").click(function(){
-    turntonextday();
-    dataupdate();
-});
 
 function turntonextday(){
     var date=new Date($("#nowdate").text());
@@ -311,30 +291,23 @@ function gettoday(){
     console.log(time);
     return time;
 }
-});
+
+function getdate(){
+    var time=$("#nowdate").text();
+    var t=time.split("-");
+    if(t[1].length!=2) t[1]="0"+t[1];
+    if(t[2].length!=2) t[1]="0"+t[2];
+    time=t[0]+"-"+t[1]+"-"+t[2];
+    return time;
+}
+
+
+
+
+
 </script>
 
 
 
 </body>
 </html>
-<!-- 
-<script type="text/javascript">
-var thedata;
-$.ajax({
-        url: "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/GB/GBP/en-GB/Edinburgh/anywhere/"+$("#nowdate").text()+"?apiKey=ilw05191304919538696117687255292&callback=chen",
-        type: 'GET',
-        contentType:'application/json',
-        beforeSend: function(request) {
-                    request.setRequestHeader("X-Forwarded-For:192.30.252.154");
-                    },
-        success: function (data) {
-			console.log(data);
-            alert("success");
-        },
-        error:function(a,b,c){
-        	console.log(a,b,c);
-        }
-    });
-
-</script> -->
