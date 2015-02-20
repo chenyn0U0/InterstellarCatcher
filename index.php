@@ -140,8 +140,10 @@ function sortdata(){
     alldata=JSON.parse(input);
 
     alldata.Quotes.sort(function(x, y){ return x.MinPrice-y.MinPrice;});
-    if(showdataamount>alldata.Quotes.length) showdataamount=alldata.Quotes.length;
-    for(var j=0;j<showdataamount;j++){
+    var realshowdataamount;
+    if(showdataamount>alldata.Quotes.length) realshowdataamount=alldata.Quotes.length;
+    else realshowdataamount=showdataamount;
+    for(var j=0;j<realshowdataamount;j++){
 
         for(var i=0;i<alldata.Places.length;i++){
             if(alldata.Places[i].PlaceId==alldata.Quotes[j].OutboundLeg.DestinationId) {
